@@ -1,0 +1,13 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: ubuntu }
+
+inputs:
+  - name: my-local-repo
+    path: input_files_are_here
+
+run:
+  path: input_files_are_here/tasks/run_me.sh
