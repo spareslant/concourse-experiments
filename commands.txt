@@ -1,0 +1,10 @@
+#! /bin/bash
+
+
+fly targets
+fly -t tutorial sp -p first-pipeline -c pipeline.github.yml
+fly -t tutorial pipelines
+fly -t tutorial jobs -p first-pipeline
+fly -t tutorial trigger-job -j first-pipeline/first-job
+fly -t tutorial trigger-job -j first-pipeline/second-job
+fly -t tutorial trigger-job -j first-pipeline/third-job

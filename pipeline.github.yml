@@ -44,4 +44,4 @@ jobs:
   plan:
     - get: my-local-repo
     - task: refctored-task
-      file: my-local-repo/tasks/task-hello-world.yml
+      file: my-local-repo/tasks/task_hello_world.yml
