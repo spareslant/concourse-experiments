@@ -1,0 +1,47 @@
+---
+resources:
+- name: my-local-repo
+  type: git
+  source:
+    uri: https://github.com/spareslant/concourse-experiments.git
+    branch: master
+
+jobs:
+- name: first-job
+  plan:
+    - task: hello-world
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source: {repository: busybox}
+        run:
+          path: echo
+          args: ["hello world"]
+    - task: hello-earth
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source: {repository: busybox}
+        run:
+          path: echo
+          args: ["hello earth"]
+
+- name: second-job
+  plan:
+    - task: hello-universe
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source: {repository: busybox}
+        run:
+          path: echo
+          args: ["hello universe"]
+
+- name: third-job
+  plan:
+    - get: my-local-repo
+    - task: refctored-task
+      file: my-local-repo/tasks/task-hello-world.yml
