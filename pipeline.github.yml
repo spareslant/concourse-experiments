@@ -7,7 +7,7 @@ resources:
     branch: master
 
 jobs:
-- name: first-job
+- name: two-tasks-in-a-job
   plan:
     - task: hello-world
       config:
@@ -28,7 +28,7 @@ jobs:
           path: echo
           args: ["hello earth"]
 
-- name: second-job
+- name: second-job-in-same-pipeline
   plan:
     - task: hello-universe
       config:
@@ -40,14 +40,23 @@ jobs:
           path: echo
           args: ["hello universe"]
 
-- name: third-job
+- name: a-task-defined-in-other-file
   plan:
     - get: my-local-repo
     - task: refctored-task
       file: my-local-repo/tasks/task_hello_world.yml
 
-- name: fourth-job
+- name: a-task-consuming-a-resource
   plan:
     - get: my-local-repo
     - task: refctored-task
       file: my-local-repo/tasks/task_uname.yml
+
+- name: producer-and-consumer-tasks-in-a-job
+  plan:
+    - get: my-local-repo
+    - task: use-repo-produce-output
+      file: my-local-repo/tasks/produce_output.yml
+    - task: show-output-from-previous-task
+      file: my-local-repo/tasks/show_output.yml
+      
